@@ -45,16 +45,14 @@ export class ButtonGrid extends Component {
 
   render() {
     return (
-      <div className="container" >
-        <div className="row">
-          <div className="col-9">
-            <div className="row">
-              {this.renderButtons()}
-            </div>
+      <div className="row">
+        <div className="col-9">
+          <div className="row">
+            {this.renderButtons()}
           </div>
-          <div className="col-3">
-            {this.renderOps()}
-          </div>
+        </div>
+        <div className="col-3">
+          {this.renderOps()}
         </div>
       </div>
     );
