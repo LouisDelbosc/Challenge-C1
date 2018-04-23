@@ -24,7 +24,7 @@ export function computeResult({ result, input, operation }) {
 }
 
 export const calculator = (state = initialState, action) => {
-  const { result, input, operation } = state;
+  const { input } = state;
   switch (action.type) {
     case "CLEAR":
       return initialState;
@@ -32,8 +32,9 @@ export const calculator = (state = initialState, action) => {
       return { ...state, input: concatValues(input, action.value) };
     case "COMPUTE":
       return { ...initialState, result: computeResult(state) };
+    default:
+      return state;
   }
-  return state;
 };
 
 export const clearAction = () => ({ type: "CLEAR" });

@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import { connect } from 'react-redux';
-import { ButtonGrid } from './calculator/buttongrid.jsx';
-import { Labels } from './calculator/labels.jsx';
-import './App.css';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { ButtonGrid } from "./calculator/buttongrid.jsx";
+import { Labels } from "./calculator/labels.jsx";
+import "./App.css";
 
 class App extends Component {
   render() {
@@ -13,7 +12,7 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">Calculator 3000</h1>
         </header>
-        <div className="container" style={ { width: '512px' }}>
+        <div className="container" style={{ width: "512px" }}>
           <Labels result={result} currentOps={label} />
           <ButtonGrid />
         </div>
@@ -24,7 +23,9 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   result: state.calculator.result,
-  label: `${state.calculator.result} ${state.calculator.operation.display} ${state.calculator.input}`,
-})
+  label: `${state.calculator.result} ${state.calculator.operation.display} ${
+    state.calculator.input
+  }`
+});
 
 export default connect(mapStateToProps, undefined)(App);
