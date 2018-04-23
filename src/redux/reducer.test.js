@@ -1,9 +1,55 @@
-import { initialState, calculator } from './reducer';
+import { concatValues, computeResult, operations } from "./reducer";
 
-describe('reducer', () => {
-  describe('actions', () => {
-    it('should concatenate the input to the input store', () => {
-      expect(true).toBe(true);
+describe("reducer", () => {
+  describe("concatValues()", () => {
+    it("should concat value if value is an number", () => {
+      expect(concatValues("", 5)).toBe("5");
+    });
+    it("should not concat value if value is not a number", () => {
+      expect(concatValues("1", "*")).toBe("1");
+    });
+    it("should concat value if state is int and value dot", () => {
+      expect(concatValues("5", ".")).toBe("5.");
+    });
+    it("should not concat value if state is float and value dot", () => {
+      expect(concatValues("5.2", ".")).toBe("5.2");
+    });
+    it("should concat value if state empty and value is minus", () => {
+      expect(concatValues("", "-")).toBe("-");
+    });
+    it("should concat value if state minus and value number", () => {
+      expect(concatValues("-", "5")).toBe("-5");
+    });
+    it("should not concat value if state is number and value is minus", () => {
+      expect(concatValues("10", "-")).toBe("10");
+    });
+  });
+
+  describe("computeResult", () => {
+    it("should sum result and input keys", () => {
+      const state = {
+        result: 0,
+        input: "2",
+        operation: { ops: (a, b) => a + b }
+      };
+      expect(computeResult(state)).toBe(2);
+    });
+
+    it("should multiply result and input keys", () => {
+      const state = {
+        result: 5.2,
+        input: "2",
+        operation: { ops: (a, b) => a * b }
+      };
+      expect(computeResult(state)).toBe(10.4);
+    });
+
+    it("should return result if no input", () => {
+      const state = {
+        result: 5,
+        input: ""
+      };
+      expect(computeResult(state)).toBe(5);
     });
   });
 });

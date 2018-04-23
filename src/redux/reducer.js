@@ -1,22 +1,46 @@
-export const initialState = {
-  result: "",
-  input: "0",
-  operation: {
-    display: "",
-    ops: (a, b) => a + b,
-  },
+export const operations = {
+  default: { display: "", ops: undefined },
+  add: { display: "+", ops: (a, b) => a + b },
+  substract: { display: "-", ops: (a, b) => a - b },
+  multiply: { display: "x", ops: (a, b) => a * b },
+  divide: { display: "/", ops: (a, b) => a / b }
 };
 
-export const calculator = (state = initialState, action) => {
-  switch (action.type) {
-  case 'CLEAR':
-    return initialState;
-  }
-  return state;
+export const initialState = {
+  result: 0,
+  input: "",
+  operation: operations.default
+};
+
+export function concatValues(stateValue, value) {
+  const newValue = `${stateValue}${value}`;
+  const isNumber = !isNaN(Number(newValue));
+  if (newValue === "-") return newValue;
+  return isNumber ? newValue : stateValue;
 }
 
-export const clearAction = () => ({
-  type: 'CLEAR',
-})
+export function computeResult({ result, input, operation }) {
+  return input !== "" ? operation.ops(result, Number(input)) : result;
+}
 
-// export const numberAction = ()
+export const calculator = (state = initialState, action) => {
+  const { result, input, operation } = state;
+  switch (action.type) {
+    case "CLEAR":
+      return initialState;
+    case "NUMBER":
+      return { ...state, input: concatValues(input, action.value) };
+    case "COMPUTE":
+      return { ...initialState, result: computeResult(state) };
+  }
+  return state;
+};
+
+export const clearAction = () => ({ type: "CLEAR" });
+
+export const inputNumberAction = number => ({
+  type: "NUMBER",
+  value: number
+});
+
+export const computeResultAction = () => ({ type: "COMPUTE" });
