@@ -23,15 +23,24 @@ export function computeResult({ result, input, operation }) {
   return input !== "" ? operation.ops(result, Number(input)) : result;
 }
 
+export function getOperation(operationInput) {
+  return operations[operationInput]
+    ? operations[operationInput]
+    : operations.default;
+}
+
 export const calculator = (state = initialState, action) => {
   const { input } = state;
-  switch (action.type) {
+  const { type, value } = action;
+  switch (type) {
     case "CLEAR":
       return initialState;
-    case "NUMBER":
-      return { ...state, input: concatValues(input, action.value) };
     case "COMPUTE":
       return { ...initialState, result: computeResult(state) };
+    case "INPUT":
+      return { ...state, input: concatValues(input, value) };
+    case "OPERATION":
+      return { ...state, operation: getOperation(value) };
     default:
       return state;
   }
@@ -39,9 +48,8 @@ export const calculator = (state = initialState, action) => {
 
 export const clearAction = () => ({ type: "CLEAR" });
 
-export const inputNumberAction = number => ({
-  type: "NUMBER",
-  value: number
-});
-
 export const computeResultAction = () => ({ type: "COMPUTE" });
+
+export const addInputAction = value => ({ type: "INPUT", value });
+
+export const changeOperationAction = op => ({ type: "OPERATION", value: op });

@@ -1,4 +1,9 @@
-import { concatValues, computeResult, operations } from "./reducer";
+import {
+  concatValues,
+  computeResult,
+  operations,
+  getOperation
+} from "./reducer";
 
 describe("reducer", () => {
   describe("concatValues()", () => {
@@ -50,6 +55,24 @@ describe("reducer", () => {
         input: ""
       };
       expect(computeResult(state)).toBe(5);
+    });
+  });
+
+  describe("getOperation", () => {
+    it("should return add operation", () => {
+      expect(getOperation("add")).toBe(operations.add);
+    });
+    it("should return divide operation", () => {
+      expect(getOperation("divide")).toBe(operations.divide);
+    });
+    it("should return substract operation", () => {
+      expect(getOperation("substract")).toBe(operations.substract);
+    });
+    it("should return multiply operation", () => {
+      expect(getOperation("multiply")).toBe(operations.multiply);
+    });
+    it("should return default", () => {
+      expect(getOperation("not known operation")).toBe(operations.default);
     });
   });
 });
