@@ -1,6 +1,8 @@
-import { combineReducers } from 'redux';
-import { calculator } from './reducer';
+import { combineReducers } from "redux";
+import { userReducer } from "./userreducer";
+import { calculator } from "./reducer";
 
 export default combineReducers({
-  calculator,
+  userReducer,
+  calculator
 });

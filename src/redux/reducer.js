@@ -1,6 +1,6 @@
-import { operations, RESULT_ERROR } from './constant';
+import { operations, RESULT_ERROR } from "./constant";
 
-export const initialState = {
+const initialState = {
   result: 0,
   input: "",
   operation: operations.default
