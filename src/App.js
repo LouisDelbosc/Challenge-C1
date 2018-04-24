@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { UserButton } from "./userbutton";
 import { ButtonGrid } from "./calculator/buttongrid.jsx";
 import { Labels } from "./calculator/labels.jsx";
 import "./App.css";
@@ -8,6 +9,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
+          <UserButton />
           <h1 className="App-title">Calculator 3000</h1>
         </header>
         <div className="container" style={{ width: "512px" }}>

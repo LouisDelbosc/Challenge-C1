@@ -3,6 +3,6 @@ import { userReducer } from "./userreducer";
 import { calculator } from "./reducer";
 
 export default combineReducers({
-  userReducer,
+  user: userReducer,
   calculator
 });
