@@ -1,39 +1,35 @@
 import React, { Component } from "react";
+import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import {
-  clearAction,
-  computeResultAction,
-  addInputAction,
-  changeOperationAction
+  addInput,
+  clearCalculator,
+  compute,
+  changeOperation
 } from "src/redux/reducer";
 
-const mapDispatchToProps = dispatch => ({
-  clear: dispatch(clearAction),
-  compute: dispatch(computeResultAction),
-  addInput: dispatch(addInputAction),
-  chanceOperation: dispatch(changeOperationAction)
-});
-
-const handleClick = v => {
-  console.log(v.target.value);
-};
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    { addInput, clearCalculator, compute, changeOperation },
+    dispatch
+  );
 
 class ButtonGridComponent extends Component {
   renderButtons() {
-    const { addInput } = this.props;
+    const { addInput, compute } = this.props;
     const buttonData = [
-      { label: "1", onClick: addInput("1") },
-      { label: "2", onClick: handleClick },
-      { label: "3", onClick: handleClick },
-      { label: "4", onClick: handleClick },
-      { label: "5", onClick: handleClick },
-      { label: "6", onClick: handleClick },
-      { label: "7", onClick: handleClick },
-      { label: "8", onClick: handleClick },
-      { label: "9", onClick: handleClick },
-      { label: "0", onClick: handleClick },
-      { label: ".", onClick: handleClick },
-      { label: "=", onClick: handleClick }
+      { label: "1", onClick: () => addInput("1") },
+      { label: "2", onClick: () => addInput("2") },
+      { label: "3", onClick: () => addInput("3") },
+      { label: "4", onClick: () => addInput("4") },
+      { label: "5", onClick: () => addInput("5") },
+      { label: "6", onClick: () => addInput("6") },
+      { label: "7", onClick: () => addInput("7") },
+      { label: "8", onClick: () => addInput("8") },
+      { label: "9", onClick: () => addInput("9") },
+      { label: "0", onClick: () => addInput("0") },
+      { label: ".", onClick: () => addInput(".") },
+      { label: "=", onClick: () => compute() }
     ];
     return buttonData.map(({ label, onClick }) => (
       <button
@@ -48,17 +44,17 @@ class ButtonGridComponent extends Component {
   }
 
   renderOps() {
+    const { clearCalculator, changeOperation } = this.props;
     const buttonData = [
-      { label: "-", onClick: handleClick },
-      { label: "*", onClick: handleClick },
-      { label: "-", onClick: handleClick },
-      { label: "+", onClick: handleClick },
-      { label: "C", onClick: handleClick }
+      { label: "/", onClick: () => changeOperation("divide") },
+      { label: "*", onClick: () => changeOperation("multiply") },
+      { label: "-", onClick: () => changeOperation("substract") },
+      { label: "+", onClick: () => changeOperation("add") },
+      { label: "C", onClick: () => clearCalculator() }
     ];
     return buttonData.map(({ label, onClick }) => (
-      <div className="row">
+      <div className="row" key={label}>
         <button
-          key={label}
           className="btn btn-light col-12"
           onClick={onClick}
           value={label}

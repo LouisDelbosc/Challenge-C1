@@ -2,7 +2,8 @@ import {
   concatValues,
   computeResult,
   operations,
-  getOperation
+  getOperation,
+  addInput
 } from "./reducer";
 
 describe("reducer", () => {
@@ -73,6 +74,37 @@ describe("reducer", () => {
     });
     it("should return default", () => {
       expect(getOperation("not known operation")).toBe(operations.default);
+    });
+  });
+
+  describe("thunk", () => {
+    describe("addInput", () => {
+      it("should call input action if default state", () => {
+        const getState = jest.fn(() => ({
+          calculator: {
+            result: 0,
+            input: "",
+            operation: operations.default
+          }
+        }));
+        const dispatch = jest.fn();
+        addInput("1")(dispatch, getState);
+        expect(dispatch).toHaveBeenCalledWith({ type: "INPUT", value: "1" });
+      });
+
+      it("should not call input action if result is not 0 and operations is default", () => {
+        const getState = jest.fn(() => ({
+          calculator: {
+            result: 5,
+            input: "",
+            operation: operations.default
+          }
+        }));
+        const dispatch = jest.fn();
+        addInput("1")(dispatch, getState);
+        expect(dispatch).toHaveBeenCalledWith({ type: "CLEAR" });
+        expect(dispatch).toHaveBeenCalledWith({ type: "INPUT", value: "1" });
+      });
     });
   });
 });

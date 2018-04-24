@@ -1,12 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 export class Labels extends Component {
   render() {
-    const { result, currentOps } = this.props;
+    const { previousResult, currentOps } = this.props;
     return (
       <div className="form-group">
-        <label for="currentOps">{result}</label>
-        <input id="currentOps" className="form-control" value={currentOps} />
+        <label htmlFor="currentOps">{previousResult}</label>
+        <input
+          id="currentOps"
+          readOnly
+          className="form-control"
+          value={currentOps}
+        />
       </div>
     );
   }
