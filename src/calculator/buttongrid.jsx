@@ -66,6 +66,7 @@ class ButtonGridComponent extends Component {
   }
 
   render() {
+    console.log('rerender');
     return (
       <div className="row">
         <div className="col-9">

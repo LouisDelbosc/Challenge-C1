@@ -1,6 +1,13 @@
 import React, { Component } from "react";
+import { displayCalculatorLabel } from "src/redux/reducer";
+import { connect } from "react-redux";
 
-export class Labels extends Component {
+const mapStateToProps = ({ calculator }) => ({
+  result: calculator.result,
+  currentOps: displayCalculatorLabel(calculator)
+})
+
+class LabelsComponent extends Component {
   render() {
     const { result, currentOps } = this.props;
     return (
@@ -16,3 +23,5 @@ export class Labels extends Component {
     );
   }
 }
+
+export const Labels = connect(mapStateToProps, undefined)(LabelsComponent);
