@@ -2,10 +2,10 @@ import React, { Component } from "react";
 
 export class Labels extends Component {
   render() {
-    const { previousResult, currentOps } = this.props;
+    const { result, currentOps } = this.props;
     return (
       <div className="form-group">
-        <label htmlFor="currentOps">{previousResult}</label>
+        <label htmlFor="currentOps">{result}</label>
         <input
           id="currentOps"
           readOnly

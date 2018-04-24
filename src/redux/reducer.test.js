@@ -1,9 +1,10 @@
 import {
-  concatValues,
+  addInput,
   computeResult,
-  operations,
+  concatValues,
+  displayCalculatorLabel,
   getOperation,
-  addInput
+  operations
 } from "./reducer";
 
 describe("reducer", () => {
@@ -53,9 +54,18 @@ describe("reducer", () => {
     it("should return result if no input", () => {
       const state = {
         result: 5,
-        input: ""
+        input: "",
+        operation: { ops: (a, b) => a * b }
       };
       expect(computeResult(state)).toBe(5);
+    });
+    it("should return error if cannot compute", () => {
+      const state = {
+        result: 0,
+        input: "0",
+        operation: { ops: (a, b) => a / b }
+      };
+      expect(computeResult(state)).toBe("error");
     });
   });
 
@@ -74,6 +84,31 @@ describe("reducer", () => {
     });
     it("should return default", () => {
       expect(getOperation("not known operation")).toBe(operations.default);
+    });
+  });
+
+  describe("display calculator label", () => {
+    it("should be empty for default state", () => {
+      const state = { result: 0, input: "", operation: operations.default };
+      expect(displayCalculatorLabel(state)).toBe("");
+    });
+    it("should show the whole line", () => {
+      const state = { result: 1, input: "10", operation: operations.add };
+      expect(displayCalculatorLabel(state)).toBe("1 + 10");
+    });
+
+    it("should only display input if default result and default operation", () => {
+      const state = { result: 0, input: "10", operation: operations.default };
+      expect(displayCalculatorLabel(state)).toBe("10");
+    });
+
+    it("should not display result if error", () => {
+      const state = {
+        result: "error",
+        input: "10",
+        operation: operations.default
+      };
+      expect(displayCalculatorLabel(state)).toBe("10");
     });
   });
 

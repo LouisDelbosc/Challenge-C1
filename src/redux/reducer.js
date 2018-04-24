@@ -1,3 +1,5 @@
+export const RESULT_ERROR = "error";
+
 export const operations = {
   default: { display: "", ops: (a, b) => a + b },
   add: { display: "+", ops: (a, b) => a + b },
@@ -7,11 +9,17 @@ export const operations = {
 };
 
 export const initialState = {
-  previousResult: "",
   result: 0,
   input: "",
   operation: operations.default
 };
+
+export function displayCalculatorLabel({ result, input, operation }) {
+  return (operation === operations.default && result === 0) ||
+    result === RESULT_ERROR
+    ? `${input}`
+    : `${result} ${operation.display} ${input}`;
+}
 
 export function concatValues(stateValue, value) {
   const newValue = `${stateValue}${value}`;
@@ -21,7 +29,12 @@ export function concatValues(stateValue, value) {
 }
 
 export function computeResult({ result, input, operation }) {
-  return input !== "" ? operation.ops(result, Number(input)) : result;
+  const newResult = operation.ops(result, Number(input));
+  return input !== ""
+    ? isFinite(newResult)
+      ? newResult
+      : RESULT_ERROR
+    : result;
 }
 
 export function getOperation(operationInput) {
@@ -31,7 +44,7 @@ export function getOperation(operationInput) {
 }
 
 export const calculator = (state = initialState, action) => {
-  const { input, result } = state;
+  const { input } = state;
   const { type, value } = action;
   switch (type) {
     case "CLEAR":
@@ -39,8 +52,7 @@ export const calculator = (state = initialState, action) => {
     case "COMPUTE":
       return {
         ...initialState,
-        result: computeResult(state),
-        previousResult: `${result}`
+        result: computeResult(state)
       };
     case "INPUT":
       return { ...state, input: concatValues(input, value) };
