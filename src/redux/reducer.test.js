@@ -1,10 +1,10 @@
+import { operations } from './constant';
+import { addInput } from './action';
 import {
-  addInput,
   computeResult,
   concatValues,
   displayCalculatorLabel,
   getOperation,
-  operations
 } from "./reducer";
 
 describe("reducer", () => {

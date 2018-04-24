@@ -6,7 +6,7 @@ import {
   clearCalculator,
   compute,
   changeOperation
-} from "src/redux/reducer";
+} from "src/redux/action";
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
