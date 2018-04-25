@@ -40,7 +40,7 @@ export function changeOperation(op) {
 }
 
 function getRandomInt(min, max) {
-  return Math.floor(Math.random() * Math.floor(max - min)) + min;
+  return Math.round(Math.random() * (max - min)) + min;
 }
 
 export function randomComputation() {
@@ -68,7 +68,7 @@ export function randomComputation() {
         ? getRandomInt(1, data.length)
         : getRandomInt(0, data.length);
     const elem = data[randomInt];
-    if (elem in ["add", "substract", "multiply", "divide"]) {
+    if (["add", "substract", "multiply", "divide"].includes(elem)) {
       dispatch(computeResultAction());
       return dispatch(changeOperationAction(elem));
     }

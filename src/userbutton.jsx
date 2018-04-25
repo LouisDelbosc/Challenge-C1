@@ -19,7 +19,6 @@ class UserButtonComponent extends Component {
   render() {
     const { role, toDev, toUser } = this.props;
     const isNormalUser = role === USER_ROLE;
-    console.log("role", role);
     return (
       <div
         className="btn-group btn-group-toggle"
