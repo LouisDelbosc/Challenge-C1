@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { displayCalculatorLabel } from "src/redux/reducer";
+import { displayCalculatorLabel } from "src/redux/calculatorreducer";
 import { bindActionCreators } from "redux";
 import { randomComputation } from "src/redux/action";
 import { DEV_ROLE } from "src/redux/userreducer";
