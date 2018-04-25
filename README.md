@@ -9,14 +9,14 @@ J'ai utilisé *create-react-app* pour générer le projet, bootstrap pour le ren
 #### Choix de design
 
 - J'ai copié le fonctionnement d'une calculatrice de bureau pour ne pas devoir gérer les priorités de calcul.
-- Le model est constitué du résultat (*result*), de nouvel entrée utilisateur (*input*) et de l'opération (*operation*)
+- Le modèle de données est constitué du résultat (*result*), de nouvel entrée utilisateur (*input*) et de l'opération (*operation*)
   - le resultat est stocké sous forme de nombre js pour faciliter le calcul, sauf s'il y a eu une erreur (dans ce cas il faut *error*).
-  - l'input est stocké sous forme de string pour facilité la construction de nombre pas totalement fini (eg 1.)
+  - l'input est stocké sous forme de string pour faciliter la construction de nombre pas totalement fini (eg 1. pour écrire 1.02)
   - l'opération est composée d'une fonction et d'une option d'affichage
-  - une bonne partie des input est filtré pour ne pas avoir de mauvais calcul (eg on ne peut pas ecrire 1.1.1 ou 9*+/2)
+  - une bonne partie des input est filtrée pour ne pas avoir de mauvais calculs (eg on ne peut pas écrire 1.1.1 ou 9*+/2)
 - Le calcul aléatoire se déclenche lorsqu'on est mode dev (ie radio bouton sur developer) et qu'on laisse la touche espace enfoncée
-  - La génération d'opérations alétoires a été simple parce que les regles métiers sont forcées lors de l'input
-- Le role de user/dev/admin est défini dans un store redux et est modifiable via un radio button dans le header pour faciliter les changement de point de vue
+  - La génération d'opérations aléatoires a été simple parce que les règles métiers sont forcées lors de l'input
+- Le rôle de user/dev/admin est défini dans un store redux et est modifiable via un radio button dans le header pour faciliter les changements de point de vue
   
   
 #### Alternatives
